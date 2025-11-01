@@ -1,0 +1,1280 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apex Trading · Plateforme Professionnelle</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --black: #000000;
+            --white: #FFFFFF;
+            --gray-50: #FAFAFA;
+            --gray-100: #F5F5F5;
+            --gray-200: #E5E5E5;
+            --gray-300: #D4D4D4;
+            --gray-400: #A3A3A3;
+            --gray-500: #737373;
+            --gray-600: #525252;
+            --gray-700: #404040;
+            --gray-800: #262626;
+            --gray-900: #171717;
+            --blue: #0066FF;
+            --green: #10B981;
+            --red: #EF4444;
+            --yellow: #F59E0B;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--white);
+            color: var(--black);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Top Navigation Bar */
+        .top-nav {
+            background: var(--white);
+            border-bottom: 1px solid var(--gray-200);
+            padding: 0.75rem 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 900;
+            letter-spacing: -1px;
+            color: var(--black);
+        }
+
+        .main-menu {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .menu-item {
+            padding: 0.6rem 1rem;
+            background: transparent;
+            border: none;
+            color: var(--gray-600);
+            font-weight: 600;
+            font-size: 0.85rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: 'Inter', sans-serif;
+            white-space: nowrap;
+        }
+
+        .menu-item:hover {
+            background: var(--gray-100);
+            color: var(--black);
+        }
+
+        .menu-item.active {
+            background: var(--black);
+            color: var(--white);
+        }
+
+        .search-bar {
+            position: relative;
+            width: 200px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 0.6rem 0.9rem 0.6rem 2.2rem;
+            background: var(--gray-100);
+            border: 1px solid var(--gray-200);
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--black);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 0.8rem;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.9rem;
+            color: var(--gray-400);
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .watchlist-btn {
+            padding: 0.6rem 1rem;
+            background: var(--gray-100);
+            border: 1px solid var(--gray-200);
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .watchlist-btn:hover {
+            background: var(--black);
+            color: var(--white);
+            border-color: var(--black);
+        }
+
+        /* Main Container - Responsive */
+        .main-container {
+            display: grid;
+            grid-template-columns: 320px 1fr 380px;
+            gap: 1rem;
+            padding: 1rem;
+            min-height: calc(100vh - 70px);
+        }
+
+        /* Watchlist Panel */
+        .watchlist-panel {
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: 16px;
+            overflow-y: auto;
+            padding: 1.5rem;
+        }
+
+        .panel-header {
+            margin-bottom: 1.5rem;
+        }
+
+        .panel-title {
+            font-size: 1.2rem;
+            font-weight: 900;
+            letter-spacing: -0.5px;
+            margin-bottom: 0.5rem;
+        }
+
+        .panel-subtitle {
+            font-size: 0.85rem;
+            color: var(--gray-500);
+            font-weight: 600;
+        }
+
+        .live-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: var(--gray-100);
+            border-radius: 100px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+
+        .live-dot {
+            width: 6px;
+            height: 6px;
+            background: var(--black);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        .stock-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .stock-card {
+            background: var(--gray-50);
+            border: 2px solid transparent;
+            border-radius: 14px;
+            padding: 1.25rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .stock-card:hover, .stock-card.active {
+            background: var(--white);
+            border-color: var(--black);
+            transform: translateX(8px);
+        }
+
+        .stock-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.75rem;
+        }
+
+        .stock-symbol {
+            font-size: 1.3rem;
+            font-weight: 900;
+            letter-spacing: -0.7px;
+        }
+
+        .stock-badge {
+            padding: 0.3rem 0.7rem;
+            background: var(--gray-200);
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 800;
+        }
+
+        .stock-badge.positive {
+            background: var(--black);
+            color: var(--white);
+        }
+
+        .stock-name {
+            font-size: 0.85rem;
+            color: var(--gray-500);
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+
+        .stock-price-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+        }
+
+        .stock-price {
+            font-size: 1.5rem;
+            font-weight: 900;
+            letter-spacing: -0.8px;
+        }
+
+        .stock-change {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--gray-600);
+        }
+
+        /* Main Chart Panel */
+        .chart-panel {
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: 16px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .chart-header {
+            padding: 2rem;
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .chart-meta {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .symbol-tag {
+            padding: 0.5rem 1.2rem;
+            background: var(--black);
+            color: var(--white);
+            border-radius: 8px;
+            font-weight: 900;
+            font-size: 0.95rem;
+        }
+
+        .exchange-tag {
+            padding: 0.5rem 1.2rem;
+            background: var(--gray-100);
+            color: var(--gray-600);
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 700;
+        }
+
+        /* VIX Fear Indicator */
+        .vix-indicator {
+            padding: 0.65rem 1.3rem;
+            border-radius: 100px;
+            font-size: 0.85rem;
+            font-weight: 800;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .vix-low {
+            background: rgba(0, 102, 255, 0.15);
+            color: var(--blue);
+            border: 2px solid var(--blue);
+        }
+
+        .vix-medium {
+            background: rgba(245, 158, 11, 0.15);
+            color: var(--yellow);
+            border: 2px solid var(--yellow);
+        }
+
+        .vix-high {
+            background: rgba(239, 68, 68, 0.15);
+            color: var(--red);
+            border: 2px solid var(--red);
+        }
+
+        .vix-icon {
+            font-size: 1.1rem;
+        }
+
+        .chart-title {
+            font-size: 2rem;
+            font-weight: 900;
+            letter-spacing: -1.2px;
+            margin-bottom: 1rem;
+        }
+
+        .price-display {
+            display: flex;
+            align-items: baseline;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .price-large {
+            font-size: 3rem;
+            font-weight: 900;
+            letter-spacing: -2px;
+        }
+
+        .price-change-badge {
+            padding: 0.7rem 1.4rem;
+            background: var(--gray-100);
+            border-radius: 10px;
+            font-size: 1.3rem;
+            font-weight: 900;
+            letter-spacing: -0.5px;
+        }
+
+        .price-change-badge.gain {
+            background: var(--black);
+            color: var(--white);
+        }
+
+        /* Market Pattern Analysis */
+        .pattern-analysis {
+            background: linear-gradient(135deg, rgba(0, 102, 255, 0.05) 0%, white 100%);
+            border: 2px solid var(--blue);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .pattern-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .pattern-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--blue);
+            color: var(--white);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .pattern-title {
+            font-size: 1.4rem;
+            font-weight: 900;
+            letter-spacing: -0.7px;
+        }
+
+        .pattern-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .pattern-card {
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: 12px;
+            padding: 1.25rem;
+        }
+
+        .pattern-label {
+            font-size: 0.8rem;
+            color: var(--gray-500);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.75rem;
+        }
+
+        .pattern-value {
+            font-size: 1.6rem;
+            font-weight: 900;
+            letter-spacing: -0.8px;
+            margin-bottom: 0.5rem;
+        }
+
+        .pattern-detail {
+            font-size: 0.85rem;
+            color: var(--gray-600);
+            font-weight: 600;
+        }
+
+        .prediction-box {
+            background: var(--white);
+            border: 2px solid var(--blue);
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+
+        .prediction-title {
+            font-size: 1.1rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            color: var(--blue);
+        }
+
+        .prediction-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .prediction-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            padding: 0.75rem;
+            background: var(--gray-50);
+            border-radius: 8px;
+        }
+
+        .prediction-icon {
+            width: 28px;
+            height: 28px;
+            background: var(--blue);
+            color: var(--white);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 0.85rem;
+            flex-shrink: 0;
+            margin-top: 0.1rem;
+        }
+
+        .prediction-text {
+            font-size: 0.9rem;
+            font-weight: 600;
+            line-height: 1.5;
+            color: var(--gray-800);
+        }
+
+        .confidence-badge {
+            display: inline-block;
+            padding: 0.35rem 0.8rem;
+            background: rgba(0, 102, 255, 0.15);
+            color: var(--blue);
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 800;
+            margin-left: 0.5rem;
+        }
+
+        .chart-controls {
+            padding: 1rem 2rem;
+            display: flex;
+            gap: 0.5rem;
+            border-bottom: 1px solid var(--gray-200);
+            overflow-x: auto;
+        }
+
+        .timeframe-btn {
+            padding: 0.5rem 1rem;
+            background: transparent;
+            border: none;
+            color: var(--gray-600);
+            font-weight: 700;
+            font-size: 0.9rem;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: 'Inter', sans-serif;
+            white-space: nowrap;
+        }
+
+        .timeframe-btn:hover {
+            background: var(--gray-100);
+            color: var(--black);
+        }
+
+        .timeframe-btn.active {
+            background: var(--black);
+            color: var(--white);
+        }
+
+        .chart-area {
+            flex: 1;
+            padding: 2rem;
+            min-height: 400px;
+        }
+
+        .chart-canvas {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Order Panel */
+        .order-panel {
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: 16px;
+            overflow-y: auto;
+            padding: 1.5rem;
+        }
+
+        .trade-toggle {
+            display: flex;
+            background: var(--gray-100);
+            padding: 0.4rem;
+            border-radius: 10px;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .toggle-btn {
+            flex: 1;
+            padding: 0.8rem;
+            background: transparent;
+            border: none;
+            color: var(--gray-600);
+            font-weight: 900;
+            font-size: 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .toggle-btn.active {
+            background: var(--black);
+            color: var(--white);
+        }
+
+        .input-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .input-label {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--gray-600);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.6rem;
+            display: block;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 1rem 1.2rem;
+            background: var(--gray-50);
+            border: 2px solid var(--gray-200);
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.3s;
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: var(--black);
+            background: var(--white);
+        }
+
+        .order-summary {
+            background: var(--gray-50);
+            border: 1px solid var(--gray-200);
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .summary-row:last-child {
+            border-bottom: none;
+            padding-top: 1rem;
+            margin-top: 0.5rem;
+            border-top: 2px solid var(--black);
+        }
+
+        .summary-label {
+            color: var(--gray-600);
+            font-weight: 600;
+        }
+
+        .summary-value {
+            font-weight: 800;
+        }
+
+        .trade-btn {
+            width: 100%;
+            padding: 1.2rem;
+            background: var(--black);
+            color: var(--white);
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 900;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .trade-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 1200px) {
+            .main-container {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .watchlist-panel,
+            .order-panel {
+                max-height: none;
+            }
+
+            .chart-area {
+                min-height: 300px;
+            }
+
+            .price-large {
+                font-size: 2.5rem;
+            }
+
+            .chart-title {
+                font-size: 1.5rem;
+            }
+
+            .pattern-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .top-nav {
+                flex-wrap: wrap;
+                gap: 0.75rem;
+            }
+
+            .nav-left {
+                width: 100%;
+                justify-content: space-between;
+            }
+
+            .main-menu {
+                width: 100%;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .search-bar {
+                width: 100%;
+                order: 3;
+            }
+
+            .nav-right {
+                width: 100%;
+                order: 2;
+            }
+
+            .menu-item {
+                font-size: 0.8rem;
+                padding: 0.5rem 0.8rem;
+            }
+
+            .chart-header {
+                padding: 1.5rem;
+            }
+
+            .chart-controls {
+                padding: 0.75rem 1rem;
+            }
+
+            .chart-area {
+                padding: 1rem;
+            }
+
+            .price-large {
+                font-size: 2rem;
+            }
+
+            .price-change-badge {
+                font-size: 1rem;
+                padding: 0.5rem 1rem;
+            }
+
+            .pattern-analysis {
+                padding: 1rem;
+            }
+
+            .pattern-title {
+                font-size: 1.1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo {
+                font-size: 1.2rem;
+            }
+
+            .watchlist-btn {
+                padding: 0.5rem 0.8rem;
+                font-size: 0.8rem;
+            }
+
+            .chart-meta {
+                gap: 0.5rem;
+            }
+
+            .symbol-tag,
+            .exchange-tag {
+                font-size: 0.8rem;
+                padding: 0.4rem 0.9rem;
+            }
+
+            .vix-indicator {
+                font-size: 0.75rem;
+                padding: 0.5rem 1rem;
+            }
+
+            .pattern-icon {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
+
+            .prediction-icon {
+                width: 24px;
+                height: 24px;
+                font-size: 0.75rem;
+            }
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--gray-100);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--gray-300);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--black);
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Navigation -->
+    <div class="top-nav">
+        <div class="nav-left">
+            <div class="logo">Apex</div>
+            <div class="main-menu">
+                <button class="menu-item active">Trading</button>
+                <button class="menu-item">Marchés</button>
+                <button class="menu-item">Résultats</button>
+                <button class="menu-item">Dictionnaire</button>
+                <button class="menu-item">Simulateur</button>
+            </div>
+        </div>
+        <div class="nav-right">
+            <div class="search-bar">
+                <span class="search-icon">🔍</span>
+                <input type="text" class="search-input" placeholder="Rechercher...">
+            </div>
+            <button class="watchlist-btn">Watchlist</button>
+        </div>
+    </div>
+
+    <!-- Main Trading View -->
+    <div class="main-container">
+        <!-- Watchlist Sidebar -->
+        <div class="watchlist-panel">
+            <div class="panel-header">
+                <div class="panel-title">Watchlist</div>
+                <div class="panel-subtitle">Actions suivies</div>
+            </div>
+            <div class="live-badge">
+                <div class="live-dot"></div>
+                LIVE
+            </div>
+            <div class="stock-list" id="stockList"></div>
+        </div>
+
+        <!-- Main Chart -->
+        <div class="chart-panel">
+            <div class="chart-header">
+                <div class="chart-meta">
+                    <div class="symbol-tag" id="chartSymbol">AAPL</div>
+                    <div class="exchange-tag">NASDAQ</div>
+                    <div class="vix-indicator vix-low" id="vixIndicator">
+                        <span class="vix-icon">🛡️</span>
+                        <span>VIX: <span id="vixValue">18.2</span> - Calme</span>
+                    </div>
+                </div>
+                <div class="chart-title" id="chartTitle">Apple Inc.</div>
+                <div class="price-display">
+                    <div class="price-large">$<span id="mainPrice">175.43</span></div>
+                    <div class="price-change-badge gain" id="priceChange">+2.45 (+1.42%)</div>
+                </div>
+
+                <!-- Market Pattern Analysis -->
+                <div class="pattern-analysis">
+                    <div class="pattern-header">
+                        <div class="pattern-icon">📊</div>
+                        <div class="pattern-title">Analyse des Patterns de Marché</div>
+                    </div>
+                    
+                    <div class="pattern-grid">
+                        <div class="pattern-card">
+                            <div class="pattern-label">Semaine Passée</div>
+                            <div class="pattern-value" id="weekPattern">Baissier</div>
+                            <div class="pattern-detail" id="weekDetail">Haut Ven < Haut Jeu</div>
+                        </div>
+                        <div class="pattern-card">
+                            <div class="pattern-label">Pattern Détecté</div>
+                            <div class="pattern-value" id="patternType">High-Low</div>
+                            <div class="pattern-detail" id="patternConfidence">Confiance: 87%</div>
+                        </div>
+                        <div class="pattern-card">
+                            <div class="pattern-label">Mer vs Lun</div>
+                            <div class="pattern-value" id="wedMonPattern">H-Mer < H-Lun</div>
+                            <div class="pattern-detail" id="wedMonDetail">Pattern actif</div>
+                        </div>
+                        <div class="pattern-card">
+                            <div class="pattern-label">Support Clé</div>
+                            <div class="pattern-value" id="keySupport">$173.20</div>
+                            <div class="pattern-detail" id="supportDetail">Bas de Vendredi</div>
+                        </div>
+                    </div>
+
+                    <div class="prediction-box">
+                        <div class="prediction-title">🔮 Prédictions Pattern</div>
+                        <ul class="prediction-list" id="predictionList">
+                            <!-- Populated by JS -->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="chart-controls">
+                <button class="timeframe-btn" data-tf="1D">1J</button>
+                <button class="timeframe-btn active" data-tf="1W">1S</button>
+                <button class="timeframe-btn" data-tf="1M">1M</button>
+                <button class="timeframe-btn" data-tf="3M">3M</button>
+                <button class="timeframe-btn" data-tf="1Y">1A</button>
+                <button class="timeframe-btn" data-tf="ALL">MAX</button>
+            </div>
+            
+            <div class="chart-area">
+                <canvas id="mainChart" class="chart-canvas"></canvas>
+            </div>
+        </div>
+
+        <!-- Order Panel -->
+        <div class="order-panel">
+            <div class="panel-header">
+                <div class="panel-title">Ordre</div>
+                <div class="panel-subtitle">Passer un ordre</div>
+            </div>
+            <div class="trade-toggle">
+                <button class="toggle-btn active" data-side="buy">Acheter</button>
+                <button class="toggle-btn" data-side="sell">Vendre</button>
+            </div>
+            <div class="input-group">
+                <label class="input-label">Symbole</label>
+                <input type="text" class="input-field" id="orderSymbol" value="AAPL" readonly>
+            </div>
+            <div class="input-group">
+                <label class="input-label">Type d'ordre</label>
+                <select class="input-field">
+                    <option>Ordre au marché</option>
+                    <option>Ordre à cours limité</option>
+                    <option>Stop Loss</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label class="input-label">Quantité</label>
+                <input type="number" class="input-field" value="1" min="1">
+            </div>
+            <div class="order-summary">
+                <div class="summary-row">
+                    <span class="summary-label">Prix par action</span>
+                    <span class="summary-value">$175.43</span>
+                </div>
+                <div class="summary-row">
+                    <span class="summary-label">Actions</span>
+                    <span class="summary-value">1</span>
+                </div>
+                <div class="summary-row">
+                    <span class="summary-label">Commission</span>
+                    <span class="summary-value">$0.00</span>
+                </div>
+                <div class="summary-row">
+                    <span class="summary-label">Total</span>
+                    <span class="summary-value">$175.43</span>
+                </div>
+            </div>
+            <button class="trade-btn">Acheter AAPL</button>
+        </div>
+    </div>
+
+    <script>
+        // Stock data with market patterns
+        const stocks = [
+            { 
+                symbol: 'AAPL', 
+                name: 'Apple Inc.', 
+                price: 175.43, 
+                change: 1.42,
+                weekData: {
+                    mon: { high: 176.20, low: 173.80 },
+                    tue: { high: 177.50, low: 174.20 },
+                    wed: { high: 175.90, low: 172.50 },
+                    thu: { high: 178.20, low: 175.10 },
+                    fri: { high: 177.30, low: 173.20 }
+                }
+            },
+            { 
+                symbol: 'MSFT', 
+                name: 'Microsoft', 
+                price: 378.91, 
+                change: 0.87,
+                weekData: {
+                    mon: { high: 380.50, low: 376.20 },
+                    tue: { high: 382.10, low: 378.50 },
+                    wed: { high: 379.80, low: 375.90 },
+                    thu: { high: 383.20, low: 379.40 },
+                    fri: { high: 381.50, low: 377.80 }
+                }
+            },
+            { 
+                symbol: 'NVDA', 
+                name: 'NVIDIA', 
+                price: 495.22, 
+                change: 3.78,
+                weekData: {
+                    mon: { high: 498.50, low: 490.20 },
+                    tue: { high: 502.10, low: 495.30 },
+                    wed: { high: 496.80, low: 489.50 },
+                    thu: { high: 505.20, low: 498.40 },
+                    fri: { high: 502.30, low: 493.20 }
+                }
+            },
+            { symbol: 'TSLA', name: 'Tesla', price: 238.45, change: -1.23, weekData: { mon: { high: 242, low: 236 }, tue: { high: 244, low: 239 }, wed: { high: 240, low: 234 }, thu: { high: 246, low: 240 }, fri: { high: 243, low: 237 } } },
+            { symbol: 'GOOGL', name: 'Alphabet', price: 141.80, change: -0.45, weekData: { mon: { high: 143, low: 140 }, tue: { high: 144, low: 141 }, wed: { high: 142, low: 139 }, thu: { high: 145, low: 142 }, fri: { high: 143, low: 140 } } },
+            { symbol: 'AMZN', name: 'Amazon', price: 151.94, change: 2.15, weekData: { mon: { high: 153, low: 149 }, tue: { high: 154, low: 151 }, wed: { high: 152, low: 148 }, thu: { high: 156, low: 152 }, fri: { high: 154, low: 150 } } },
+            { symbol: 'META', name: 'Meta', price: 352.17, change: 1.89, weekData: { mon: { high: 355, low: 349 }, tue: { high: 358, low: 352 }, wed: { high: 354, low: 348 }, thu: { high: 360, low: 354 }, fri: { high: 357, low: 351 } } }
+        ];
+
+        let currentStock = stocks[0];
+        let vixValue = 18.2;
+
+        // Initialize
+        function init() {
+            renderStockList();
+            updateVIX();
+            analyzePatterns();
+            drawChart();
+        }
+
+        // Render stock list
+        function renderStockList() {
+            const list = document.getElementById('stockList');
+            list.innerHTML = stocks.map((stock, idx) => `
+                <div class="stock-card ${idx === 0 ? 'active' : ''}" onclick="selectStock(${idx})">
+                    <div class="stock-header">
+                        <div class="stock-symbol">${stock.symbol}</div>
+                        <div class="stock-badge ${stock.change >= 0 ? 'positive' : ''}">${stock.change >= 0 ? '↗' : '↘'} ${Math.abs(stock.change).toFixed(2)}%</div>
+                    </div>
+                    <div class="stock-name">${stock.name}</div>
+                    <div class="stock-price-row">
+                        <div class="stock-price">$${stock.price.toFixed(2)}</div>
+                        <div class="stock-change">${stock.change >= 0 ? '+' : ''}${(stock.price * stock.change / 100).toFixed(2)}</div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Select stock
+        function selectStock(idx) {
+            currentStock = stocks[idx];
+            document.querySelectorAll('.stock-card').forEach((card, i) => {
+                card.classList.toggle('active', i === idx);
+            });
+            updateChartInfo();
+            analyzePatterns();
+            drawChart();
+        }
+
+        // Update VIX indicator
+        function updateVIX() {
+            const vixIndicator = document.getElementById('vixIndicator');
+            const vixValueEl = document.getElementById('vixValue');
+            
+            vixValueEl.textContent = vixValue.toFixed(1);
+            
+            // Remove all classes
+            vixIndicator.classList.remove('vix-low', 'vix-medium', 'vix-high');
+            
+            if (vixValue < 20) {
+                vixIndicator.classList.add('vix-low');
+                vixIndicator.innerHTML = `<span class="vix-icon">🛡️</span><span>VIX: ${vixValue.toFixed(1)} - Calme</span>`;
+            } else if (vixValue >= 20 && vixValue < 30) {
+                vixIndicator.classList.add('vix-low');
+                vixIndicator.innerHTML = `<span class="vix-icon">📊</span><span>VIX: ${vixValue.toFixed(1)} - Normal</span>`;
+            } else if (vixValue >= 30 && vixValue <= 40) {
+                vixIndicator.classList.add('vix-medium');
+                vixIndicator.innerHTML = `<span class="vix-icon">⚠️</span><span>VIX: ${vixValue.toFixed(1)} - Attention</span>`;
+            } else {
+                vixIndicator.classList.add('vix-high');
+                vixIndicator.innerHTML = `<span class="vix-icon">🚨</span><span>VIX: ${vixValue.toFixed(1)} - Alerte</span>`;
+            }
+        }
+
+        // Analyze market patterns
+        function analyzePatterns() {
+            const data = currentStock.weekData;
+            const predictions = [];
+            
+            // Pattern 1: Friday high < Thursday high
+            if (data.fri.high < data.thu.high) {
+                document.getElementById('weekPattern').textContent = 'Baissier';
+                document.getElementById('weekDetail').textContent = `Haut Ven ($${data.fri.high}) < Haut Jeu ($${data.thu.high})`;
+                predictions.push({
+                    text: `Le bas de Vendredi ($${data.fri.low}) sera probablement visité Lundi`,
+                    confidence: 87
+                });
+            } else {
+                document.getElementById('weekPattern').textContent = 'Haussier';
+                document.getElementById('weekDetail').textContent = `Haut Ven ($${data.fri.high}) ≥ Haut Jeu ($${data.thu.high})`;
+            }
+            
+            // Pattern 2: Wednesday high < Monday high
+            if (data.wed.high < data.mon.high) {
+                document.getElementById('wedMonPattern').textContent = 'H-Mer < H-Lun';
+                document.getElementById('wedMonDetail').textContent = 'Pattern détecté';
+                predictions.push({
+                    text: `Le bas de Mercredi ($${data.wed.low}) sera probablement testé Jeudi`,
+                    confidence: 82
+                });
+            } else {
+                document.getElementById('wedMonPattern').textContent = 'H-Mer ≥ H-Lun';
+                document.getElementById('wedMonDetail').textContent = 'Pas de pattern';
+            }
+            
+            // Pattern 3: Support level
+            document.getElementById('keySupport').textContent = `$${data.fri.low}`;
+            document.getElementById('supportDetail').textContent = 'Bas de Vendredi';
+            
+            // Additional predictions based on volatility
+            if (Math.abs(currentStock.change) > 2) {
+                predictions.push({
+                    text: 'Forte volatilité détectée - Possibilité de retournement',
+                    confidence: 75
+                });
+            }
+            
+            // Pattern type
+            document.getElementById('patternType').textContent = predictions.length > 0 ? 'Actif' : 'Neutre';
+            document.getElementById('patternConfidence').textContent = predictions.length > 0 ? `${predictions.length} pattern(s)` : 'Aucun signal';
+            
+            // Render predictions
+            const predictionList = document.getElementById('predictionList');
+            if (predictions.length > 0) {
+                predictionList.innerHTML = predictions.map((pred, idx) => `
+                    <li class="prediction-item">
+                        <div class="prediction-icon">${idx + 1}</div>
+                        <div class="prediction-text">
+                            ${pred.text}
+                            <span class="confidence-badge">${pred.confidence}% confiance</span>
+                        </div>
+                    </li>
+                `).join('');
+            } else {
+                predictionList.innerHTML = `
+                    <li class="prediction-item">
+                        <div class="prediction-icon">ℹ️</div>
+                        <div class="prediction-text">Aucun pattern fort détecté cette semaine. Marché en consolidation.</div>
+                    </li>
+                `;
+            }
+        }
+
+        // Update chart info
+        function updateChartInfo() {
+            document.getElementById('chartSymbol').textContent = currentStock.symbol;
+            document.getElementById('chartTitle').textContent = currentStock.name;
+            document.getElementById('mainPrice').textContent = currentStock.price.toFixed(2);
+            
+            const changeValue = (currentStock.price * currentStock.change / 100).toFixed(2);
+            const changeElement = document.getElementById('priceChange');
+            changeElement.textContent = `${currentStock.change >= 0 ? '+' : ''}${changeValue} (${currentStock.change >= 0 ? '+' : ''}${currentStock.change.toFixed(2)}%)`;
+            changeElement.className = `price-change-badge ${currentStock.change >= 0 ? 'gain' : ''}`;
+            
+            document.getElementById('orderSymbol').value = currentStock.symbol;
+        }
+
+        // Draw chart
+        function drawChart() {
+            const canvas = document.getElementById('mainChart');
+            const ctx = canvas.getContext('2d');
+            canvas.width = canvas.parentElement.offsetWidth;
+            canvas.height = canvas.parentElement.offsetHeight;
+
+            const points = 60;
+            const data = [];
+            let base = currentStock.price * (1 - currentStock.change / 100);
+            
+            for (let i = 0; i < points; i++) {
+                const progress = i / points;
+                const trend = base + (currentStock.price - base) * progress;
+                const noise = (Math.random() - 0.5) * (currentStock.price * 0.01);
+                data.push(trend + noise);
+            }
+
+            const pad = 40;
+            const width = canvas.width - pad * 2;
+            const height = canvas.height - pad * 2;
+            const min = Math.min(...data) * 0.995;
+            const max = Math.max(...data) * 1.005;
+            const range = max - min;
+
+            // Gradient
+            const grad = ctx.createLinearGradient(0, pad, 0, canvas.height - pad);
+            grad.addColorStop(0, 'rgba(0, 0, 0, 0.1)');
+            grad.addColorStop(1, 'rgba(0, 0, 0, 0)');
+
+            ctx.fillStyle = grad;
+            ctx.beginPath();
+            ctx.moveTo(pad, canvas.height - pad);
+            data.forEach((price, i) => {
+                const x = pad + (width / (points - 1)) * i;
+                const y = pad + height - ((price - min) / range * height);
+                ctx.lineTo(x, y);
+            });
+            ctx.lineTo(canvas.width - pad, canvas.height - pad);
+            ctx.closePath();
+            ctx.fill();
+
+            // Line
+            ctx.strokeStyle = '#000000';
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+            data.forEach((price, i) => {
+                const x = pad + (width / (points - 1)) * i;
+                const y = pad + height - ((price - min) / range * height);
+                if (i === 0) ctx.moveTo(x, y);
+                else ctx.lineTo(x, y);
+            });
+            ctx.stroke();
+        }
+
+        // Toggle buttons
+        document.querySelectorAll('.toggle-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        document.querySelectorAll('.timeframe-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.timeframe-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                drawChart();
+            });
+        });
+
+        // Initialize
+        init();
+        
+        // Update prices and VIX
+        setInterval(() => {
+            stocks.forEach(stock => {
+                const change = (Math.random() - 0.5) * 0.2;
+                stock.price += change;
+                stock.change = (change / stock.price) * 100;
+            });
+            
+            // Simulate VIX changes
+            vixValue += (Math.random() - 0.5) * 2;
+            vixValue = Math.max(10, Math.min(60, vixValue));
+            
+            renderStockList();
+            updateChartInfo();
+            updateVIX();
+            analyzePatterns();
+            drawChart();
+        }, 3000);
+    </script>
+</body>
+</html>
